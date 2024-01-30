@@ -10,11 +10,11 @@
 <script src="https://js.arcgis.com/4.25/"></script>
 <!-- Adding the modules needed for a full screen map app -->
 <script>  
-  require(["esri/config", "esri/Map", "esri/views/MapView"], 
-  function(esriConfig, Map, MapView) {   
+  require(["esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Search", "esri/widgets/Locate", "esri/widgets/BasemapGallery"], 
+  function(esriConfig, Map, MapView, Search, Locate, BasemapGallery) {   
     esriConfig.apiKey = "AAPKe3ed074605b74de0ba2d1e373dcc65bbcvEnFg_vWzBUO-ysOviHMlflp1cn4mNFShcpno5Good4EFgVfdiVJY52BX607Msp";
     const map = new Map({ 
- basemap: "arcgis-topographic" // Basemap layer service 
+ basemap: "dark-gray" // Basemap layer service 
  });
  const view = new MapView({
  map: map,
@@ -22,6 +22,27 @@
  zoom: 11, // Zoom level
  container: "viewDiv" // Div element
 });
+const searchWidget = new Search({
+          view: view  
+        });
+        // Add the search widget to the top right corner of the view
+        view.ui.add(searchWidget, {
+          position: "top-right"
+        });
+const locateBtn = new Locate({
+          view: view
+        });
+    // Add the locate widget to the top left corner of the view
+    view.ui.add(locateBtn, {
+          position: "top-left"
+        });    
+        const basemapGallery = new BasemapGallery({
+          view: view
+        });
+         // Add the widget to the top-right corner of the view
+         view.ui.add(basemapGallery, {
+          position: "top-right"
+        });
   });  
  </script>
 <style>  
@@ -37,6 +58,7 @@ body,
 </head>
 <body>
   <div id="viewDiv"></div> 
+ 
 
 </body>
 </html>
